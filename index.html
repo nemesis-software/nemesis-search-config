@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div class="live-edit-container"></div>
+    <start-cms-slot  id="test_id"></start-cms-slot>
+    <start-cms-widget id="test-widget"></start-cms-widget>
+      <div style="
+      position: relative;
+      width: 300px;
+      height: 270px;
+      padding: 5px;
+      margin: 110px;
+      background-color: yellow;">
+        <div style="
+          position: absolute;
+          left: -40px;
+          font-size: 30px;
+          top: 116px;
+          border: 1px solid black;
+          padding: 5px;"> &lt; </div>
+        <div style="
+          position: absolute;
+          left: 325px;
+          font-size: 30px;
+          top: 116px;
+          border: 1px solid black;
+          padding: 5px;"> &gt; </div>
+      </div>
+    <end-cms-widget id="test-widget"></end-cms-widget>
+    <end-cms-slot id="test_id"></end-cms-slot>
+  </body>
+  <script src="/liveEdit.js"></script>
+</html>

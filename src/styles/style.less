@@ -1,0 +1,50 @@
+@default-blue: #4cb2e2;
+
+.search-config-nav-bar {
+  top: 100px;
+  left: 20px;
+  position: fixed;
+  z-index: 100000;
+  width: 260px;
+  min-height: 510px;
+  border: solid 1px #555;
+  background-color: #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+
+  .top-bar {
+    line-height: 1em !important;
+    width: 100%;
+    height: 25px;
+    color: white;
+    background-color: @default-blue;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-top: 5px;
+    position: relative;
+  }
+}
+
+.Select {
+
+  .Select-control {
+    border-radius: 0;
+    border-color: #d3d3d3;
+  }
+
+  &.is-disabled {
+    & > .Select-control {
+      background-color: #eee;
+
+      .Select-value {
+        .Select-value-label {
+          color: #808080;
+        }
+      }
+    }
+  }
+}
