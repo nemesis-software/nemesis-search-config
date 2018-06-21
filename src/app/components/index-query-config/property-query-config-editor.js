@@ -27,6 +27,7 @@ export default class PropertyQueryConfigEditor extends Component {
     return (
       <div className="index-query-config-editor">
         <div>{this.props.data.name}</div>
+        <div>{this.props.selectedSearch !== data.code ? `Fallback from ${data.code}` : false}</div>
         <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} label={"Boost"} name={'boost'} value={data.boost}/>
         <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} label={"Fuzziness"} name={'fuzziness'} value={data.fuzziness}/>
         <NemesisEnumField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} label={"Sort Direction"} name={'sortDirection'} values={['ASC', 'DESC']} value={['ASC', 'DESC'].indexOf(data.sortDirection)}/>

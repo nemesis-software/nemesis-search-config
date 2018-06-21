@@ -16,13 +16,11 @@ export default class IndexQueryConfig extends Component {
     let metaDataContainer = document.getElementById('search-live-edit-meta');
     let indexConfig = metaDataContainer.getAttribute('data-indexconfig');
     let indexType = metaDataContainer.getAttribute('data-indexedtype');
-    ApiCall.get(`https://solar.local:8112/storefront/facade/search/indexQueryConfigs/${indexConfig}/${indexType}`).then(result => {
-      console.log(indexType)
-      this.setState({searchOptions: result.data, indexedType: indexType})
-      // console.log(result);
+    Promise.all([ApiCall.get(`https://solar.local:8112/storefront/facade/search/indexQueryConfigs/${indexConfig}/${indexType}`), ApiCall.get(`https://solar.local:8112/storefront/facade/search/indexedProperties/${indexConfig}/${indexType}`)])
+    .then(result => {
+      this.setState({searchOptions: result[0].data, indexedProperties: result[1].data, indexedType: indexType})
     });
 
-    // console.log(metaDataContainer);
   }
 
   render() {
@@ -35,7 +33,7 @@ export default class IndexQueryConfig extends Component {
             {this.state.queryConfigEditor ?
               <IndexQueryConfigEditor data={this.state.selectedSearch}/>
               :
-              <PropertyQueryConfig data={this.state.properties} />
+              <PropertyQueryConfig selectedSearch={this.state.selectedSearch.code} indexedProperties={this.state.indexedProperties} data={this.state.properties} />
             }
           </div> :
           <Select style={{width: '100%'}}
