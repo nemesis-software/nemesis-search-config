@@ -28,7 +28,6 @@ export default class ApiCall {
     return axios({
       url: url,
       method: method,
-      baseURL: this.getRestUrl(),
       headers: this.getHeaders(contentType),
       data: data,
       params: params,
@@ -36,11 +35,11 @@ export default class ApiCall {
   }
 
   static getRestUrl() {
-    if (!baseUrl) {
-      let dataElement = $('#liveedit_data')[0];
-      baseUrl = dataElement.getAttribute('data-rest-url');
-    }
-
+    // if (!baseUrl) {
+    //   let dataElement = $('#liveedit_data')[0];
+    //   baseUrl = dataElement.getAttribute('data-rest-url');
+    // }
+    baseUrl = 'https://solar.local:8112/storefront/facade/search/indexQueryConfigs';
     return baseUrl;
   }
 

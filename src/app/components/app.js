@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavigationBar from './navigation-bar/navigation-bar';
-import $ from 'jquery';
 
 import 'react-select/dist/react-select.css';
 
@@ -15,6 +14,7 @@ export default class App extends Component {
 
   componentWillMount() {
     let urlVars = this.getUrlVars();
+
     if (urlVars['token']) {
       localStorage.setItem('privateToken', urlVars['token']);
     }

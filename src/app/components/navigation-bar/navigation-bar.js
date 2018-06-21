@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IndexQueryConfig from "source/app/components/index-query-config/index-query-config";
 
 export default class NavigationBar extends Component {
   constructor(props) {
@@ -66,6 +67,7 @@ export default class NavigationBar extends Component {
              onMouseUp={() => this.isHoldOnTopBar = false}>
           Search config
         </div>
+        <IndexQueryConfig/>
       </div>
     );
   }
