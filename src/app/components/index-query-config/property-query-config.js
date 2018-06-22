@@ -28,9 +28,8 @@ export default class PropertyQueryConfig extends Component {
     );
   }
 
-
-  onIndexPropertySelect() {
-
+  onIndexPropertySelect(indexedProperty) {
+    this.setState({selectedProperty: {name: indexedProperty.code, data: {indexedProperty: indexedProperty, code: this.props.selectedSearch}}});
   }
 
   getAllowedIndexedProperties() {

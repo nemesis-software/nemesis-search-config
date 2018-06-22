@@ -9,6 +9,7 @@ import NemesisEntityField from "source/app/components/field-components/nemesis-e
 export default class PropertyQueryConfigEditor extends Component {
   constructor(props) {
     super(props);
+    this.state = {createForSpecifiedSearch: false};
     this.fieldsReferences = [];
   }
 
@@ -23,7 +24,6 @@ export default class PropertyQueryConfigEditor extends Component {
 
   render() {
     const data = this.props.data.data;
-    console.log(data);
     return (
       <div className="index-query-config-editor">
         <div>{this.props.data.name}</div>
@@ -34,6 +34,13 @@ export default class PropertyQueryConfigEditor extends Component {
         <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} label={"Sortable"} name={'sortable'} value={data.sortable} />
         <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} label={"Highlight"} name={'highlight'} value={data.highlight} />
         <NemesisEntityField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} entityId={"search_facet"} label={"Facet"} name={'searchFacet'} value={data.searchFacet} />
+        {this.props.selectedSearch !== data.code ? <div>
+          <label className="checkbox-inline">
+            <input type="checkbox" className={"nemesis-checkbox" + (this.state.createForSpecifiedSearch ? ' active' : '')}
+                   onChange={() => this.setState({createForSpecifiedSearch: !this.state.createForSpecifiedSearch})}/>
+            Create for selected search
+          </label>
+        </div> : false}
         <button onClick={this.onSaveButtonClick.bind(this)}>Save</button>
       </div>
     );
@@ -45,17 +52,26 @@ export default class PropertyQueryConfigEditor extends Component {
     }
 
     let dirtyEntityProps = this.getDirtyValues();
-    if (dirtyEntityProps.length === 0) {
+    if (dirtyEntityProps.length === 0 && !this.state.createForSpecifiedSearch) {
       return;
     }
 
-    let resultObject = {};
+    console.log(this.props.data);
+    const data = this.props.data.data;
+    let resultObject = !this.state.createForSpecifiedSearch && data.id  ? {} : {
+      ...data,
+      code: this.props.selectedSearch,
+      indexedProperty: data.indexedProperty ? data.indexedProperty.id : null,
+      searchFacet: data.searchFacet ? data.searchFacet.id : null,
+    };
     dirtyEntityProps.forEach(prop => {
       resultObject[prop.name] = prop.value;
     });
+    let restMethod = !this.state.createForSpecifiedSearch && data.id ? 'patch' : 'post';
+    let restUrl = !this.state.createForSpecifiedSearch && data.id ? `indexed_property_query_config/${data.id}` : 'indexed_property_query_config';
 
-    let url = `https://localhost:8112/storefront/rest/indexed_property_query_config/${this.props.data.data.id}`
-    ApiCall.patch(url, resultObject).then(result => {
+    let url = `https://localhost:8112/storefront/rest/${restUrl}`;
+    ApiCall[restMethod](url, resultObject).then(result => {
       console.log('saved');
     })
   }
